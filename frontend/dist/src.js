@@ -7,12 +7,14 @@ go.addEventListener('click', function () {
     go.classList.remove('bg-slate-300')
     node.classList.add('bg-slate-300')
     goForm.classList.remove('hidden')
+    nodeForm.classList.remove('flex')
     nodeForm.classList.add('hidden')
 })
 node.addEventListener('click', function () {
     node.classList.remove('bg-slate-300')
     go.classList.add('bg-slate-300')
     nodeForm.classList.remove('hidden')
+    nodeForm.classList.add('flex')
     goForm.classList.add('hidden')
 })
 
