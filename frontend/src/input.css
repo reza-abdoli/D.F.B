@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .view-form {
+        @apply  bg-slate-500 bg-opacity-70  backdrop-blur-sm
+    }
+}
