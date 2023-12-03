@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="output.css">
+    <!-- <link rel="icon" href="../img" type="image/x-icon"> -->
+    <link rel="shortcut icon" href="#">
+    <!-- default -> favicon.ico (even for images) -->
     <title>HW</title>
 </head>
 
@@ -13,37 +15,45 @@
 
         <section class="flex items-center justify-around">
             <h2 class="cursor-pointer goTitle formClick w-1/2 text-center py-6 text-xl transition-all">Go</h2>
-            <h2 class="cursor-pointer nodeTitle formClick bg-slate-300 w-1/2 text-center py-6 text-xl transition-all">Node</h2>
+            <h2 class="cursor-pointer nodeTitle formClick bg-slate-300 w-1/2 text-center py-6 text-xl transition-all">
+                Node</h2>
         </section>
 
         <section class=" my-5 py-3 px-10">
 
             <div class="goForm flex flex-col gap-y-5">
-                
+
                 <form class="flex flex-col gap-y-5">
-                    <label for="goInput" class="text-gray-600 text-3xl">Enter at least <span class="text-red-900">8</span> chars</label>
+                    <label for="goInput" class="text-gray-600 text-3xl">Enter at least <span
+                            class="text-red-900">8</span> chars</label>
                     <input id="goInput" type="text" placeholder="golang"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button" onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" class="py-3 text-2xl rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
+                    <button type="button" id="goTextBtn"
+                        class="py-3 text-2xl rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
-
+                <!-- onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" -->
                 <h6 id="goInputStatus" class="text-gray-800 text-3xl"></h6>
 
                 <form class="flex flex-col gap-y-5">
                     <label for="goInputSh256" class="text-gray-600 text-3xl">Enter sh256</label>
                     <input id="goInputSh256" type="text" placeholder="sh256"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button" onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" class="py-3 text-2xl  rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
+                    <button type="button" id="goSha256Btn"
+                        class="py-3 text-2xl  rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
+                <!-- onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" -->
             </div>
-            
+
 
             <div class="nodeForm hidden flex-col gap-y-5">
                 <form class="flex flex-col gap-y-5">
-                    <label for="nodeInput" class="text-gray-600 text-3xl">Enter at least <span class="text-red-900">8</span> chars</label>
+                    <label for="nodeInput" class="text-gray-600 text-3xl">Enter at least <span
+                            class="text-red-900">8</span> chars</label>
                     <input id="nodeInput" type="text" placeholder="node"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button" onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)" class="py-3 text-2xl rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
+                    <button type="button"
+                        onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)"
+                        class="py-3 text-2xl rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
 
                 <h6 id="nodeInputStatus" class="text-gray-800 text-3xl"></h6>
@@ -52,7 +62,9 @@
                     <label for="nodeInputSh256" class="text-gray-600 text-3xl">Enter sh256</label>
                     <input id="nodeInputSh256" type="text" placeholder="sh256"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button" onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)" class="py-3 text-2xl  rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
+                    <button type="button"
+                        onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)"
+                        class="py-3 text-2xl  rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
             </div>
 
@@ -60,6 +72,5 @@
     </form>
 </body>
 
-<script src="./src.js"></script>
-
+<script src="src.js"></script>
 </html>

@@ -28,3 +28,7 @@ function submitText(pElement,value) {
         pElement.innerHTML = "Ok"
     }
 }
+
+goTextBtn = document.getElementById('goTextBtn')
+gosh256Btn = document.getElementById('goSha256Btn')
+

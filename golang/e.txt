@@ -1,0 +1,6 @@
+./tailwindcss init
+
+# Start a watcher
+./tailwindcss -i ../frontend/src/input.css -o ../frontend/dist/output.css --watch
+
+./tailwindcss -i ../frontend/src/input.css -o ../frontend/dist/output.css --minify
