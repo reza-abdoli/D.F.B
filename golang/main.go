@@ -23,6 +23,7 @@ func main() {
 	fs := http.FileServer(http.Dir("../frontend/dist"))
 	//fss := http.FileServer(http.Dir("../frontend/img"))
 	mux.Handle("/", fs) //--------------------------------------------------for showing static files in diffrent urls
+	mux.Handle("/img/" , http.FileServer(http.Dir("../frontend")))
 	//mux2.Handle("/",fss)
 	mux.HandleFunc("/j", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "../frontend/dist/index.html") // for doing smth in diffrent urls (its natural we dont need static files for this application(user request and sends is name))
@@ -30,7 +31,7 @@ func main() {
 	})
 	log.Print("Server is listening on port 3030...")
 
-	err := http.ListenAndServe("localhost:3032", mux)
+	err := http.ListenAndServe("localhost:3041", mux)
 	if err != nil {
 		fmt.Println(err)
 	}
