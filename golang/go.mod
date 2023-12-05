@@ -31,3 +31,5 @@ go 1.21.4
 // 	google.golang.org/protobuf v1.31.0 // indirect
 // 	gopkg.in/yaml.v3 v3.0.1 // indirect
 // )
+
+require github.com/rs/cors v1.10.1
