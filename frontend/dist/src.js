@@ -37,10 +37,13 @@ let goUrl = "http://localhost:3060/go/sha256";
 
 goTextBtn.addEventListener('click', () => {
     let input = document.getElementById('goInput').value;
+    //alert(input)
     try {
         const response = fetch(goUrl, {
             method: "POST",
             body: JSON.stringify({data : input}),
+            mode: 'no-cors',
+            dataType: 'jsonp',
             headers: {
                 "Content-type": "application/json",
             }
