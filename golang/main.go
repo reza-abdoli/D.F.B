@@ -1,90 +1,72 @@
 package main
 
 import (
-	//"encoding/json"
-	//"fmt"
-	//"io/ioutil"
-
-	//"log"
-	///"net/http"
-	//"strconv"
-
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"fmt"
-	"net/http"
+	"io"
 
-	"github.com/gin-gonic/gin"
+	"net/http"
+	//"strconv"
 )
 
 type requestData struct {
 	Data string `json:"data"`
 }
 
-// func run(port string)  {
+func goPost(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		b, err := io.ReadAll(r.Body) // reads byte by byte => [](key:value)
+		if err == io.EOF {
+			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
+			return
+		}
+		var d requestData
+		err = json.Unmarshal([]byte(b), &d)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
+			return
+		}
+		var result requestData = requestData{Data: "Less than 8 chars"} //-------------
+		if len(d.Data) > 8  {
+			cryptoSha256 := sha256.New()
+			cryptoSha256.Write([]byte(d.Data))
+			cr := cryptoSha256.Sum(nil)
+			result = requestData{Data: hex.EncodeToString(cr)} //-------------using string(cr) did not work
+		}
+		jsonData, err := json.Marshal(result)
+		if err != nil {
+			http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
+			return
+		}
+		fmt.Println(result)
+		w.Header().Set("Content-Type", "application/json")
 	
-// 	mux := http.NewServeMux()
-// 	fs := http.FileServer(http.Dir("../frontend/dist"))
-// 	mux.Handle("/", fs)                                          
-// 	mux.Handle("/img/", http.FileServer(http.Dir("../frontend")))
-
-// 	mux.HandleFunc("/go/sha256", func(w http.ResponseWriter, r *http.Request) {
-// 		fmt.Println(r.URL)
-// 		switch r.Method {
-// 		case "POST":
-// 			b, err := ioutil.ReadAll(r.Body)
-// 			err = json.Unmarshal(b, &requestData)
-// 			if err != nil {
-// 				http.Error(w, err.Error(), http.StatusUnprocessableEntity)
-// 				return
-// 			}
-
-// 			first, err := strconv.Atoi(requestData.Data)
-// 			if err != nil {
-// 				http.Error(w, err.Error(), http.StatusUnprocessableEntity)
-// 				return
-// 			}
-// 			fmt.Println(first)
-// 		}
-
-// 	})
-	
-// 	fmt.Print("Server is listening on port",port," ...\n")
-
-// 	err := http.ListenAndServe(port, mux)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-
-// }
-
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		//c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
-		c.Next()
+		w.Write(jsonData)
 	}
+
+}  
+
+func run(port string)  {
+	
+	mux := http.NewServeMux()
+	handler := http.FileServer(http.Dir("../frontend/dist"))
+	mux.Handle("/", handler)                                          
+	mux.Handle("/img/", http.FileServer(http.Dir("../frontend")))
+
+	mux.HandleFunc("/go/sha256", goPost)
+	
+	fmt.Print("Server is listening on port",port," ...\n")
+
+	err := http.ListenAndServe(port, mux)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 }
 
 func main() {
-	//run(":3060");
-	r := gin.Default()
-	r.Use(CORSMiddleware())
-	r.POST("/go/sha256", func(c *gin.Context) {
-		body := requestData{}
-	// using BindJson method to serialize body with struct
-	if err := c.BindJSON(&body); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-		return
-	}
-	fmt.Println("\n\n",body.Data,"\n\n")
-	if len(body.Data) < 8 {
-		val := "length is less than 8 characters"
-		c.JSON(400, gin.H{
-			"string": val,
-		})
-		return
-	}
-	})
-	r.Run(":3060")
+	run(":3061");
 }

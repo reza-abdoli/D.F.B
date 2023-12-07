@@ -33,11 +33,14 @@ goTextBtn = document.getElementById('goTextBtn')
 gosh256Btn = document.getElementById('goSha256Btn')
 
 
-let goUrl = "http://localhost:3060/go/sha256";
+let goUrl = "http://localhost:3061/go/sha256";
 
 goTextBtn.addEventListener('click', () => {
     let input = document.getElementById('goInput').value;
-    //alert(input)
+    if (input.length < 8) {
+     //   document.getElementById('goInputStatus').innerHTML = "Less than 8 chars";
+     //   return ;
+    }
     try {
         const response = fetch(goUrl, {
             method: "POST",
@@ -49,7 +52,7 @@ goTextBtn.addEventListener('click', () => {
             }
         })
         .then(res => res.json()) // res.json() converts the data of res which is coming from backend to js object
-        .then(data => {})
+        .then(content => {document.getElementById('goInputStatus').innerHTML = content.data})
     } catch (error) {
         console.error(`error: ${error.message}`)
     }
