@@ -15,6 +15,11 @@ type requestData struct {
 	Data string `json:"data"`
 }
 
+type responseData struct {
+	Data string `json:"data"`
+	Message string `json:"message"`
+}
+
 func goPost(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
@@ -23,18 +28,19 @@ func goPost(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
 			return
 		}
-		var d requestData
+		var d responseData
 		err = json.Unmarshal([]byte(b), &d)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
 			return
 		}
-		var result requestData = requestData{Data: "Less than 8 chars"} //-------------
+		var result responseData = responseData{Data: "Less than 8 chars" , Message: "Error"} //-------------
 		if len(d.Data) > 8  {
+			fmt.Println(d.Data,d.Message)
 			cryptoSha256 := sha256.New()
 			cryptoSha256.Write([]byte(d.Data))
 			cr := cryptoSha256.Sum(nil)
-			result = requestData{Data: hex.EncodeToString(cr)} //-------------using string(cr) did not work
+			result = responseData{Data: hex.EncodeToString(cr), Message: "Your sha256:"} //-------------using string(cr) did not work
 		}
 		jsonData, err := json.Marshal(result)
 		if err != nil {

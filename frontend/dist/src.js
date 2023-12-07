@@ -21,13 +21,13 @@ node.addEventListener('click', function () {
 goInput = document.getElementById('goInput').value
 nodeInput = document.getElementById('nodeInput').value
 
-function submitText(pElement, value) {
-    if (value.length < 8) {
-        pElement.innerHTML = "Eror: Less than 8 chars"
-    } else {
-        pElement.innerHTML = "Ok"
-    }
-}
+// function submitText(pElement, value) {
+//     if (value.length < 8) {
+//         pElement.innerHTML = "Eror: Less than 8 chars"
+//     } else {
+//         pElement.innerHTML = "Ok"
+//     }
+// }
 
 goTextBtn = document.getElementById('goTextBtn')
 gosh256Btn = document.getElementById('goSha256Btn')
@@ -44,7 +44,7 @@ goTextBtn.addEventListener('click', () => {
     try {
         const response = fetch(goUrl, {
             method: "POST",
-            body: JSON.stringify({data : input}),
+            body: JSON.stringify({message: "" , data : input}), // the JSON which is sent to the backend must have the same format as the data sent from the backend 
             mode: 'no-cors',
             dataType: 'jsonp',
             headers: {
@@ -52,7 +52,13 @@ goTextBtn.addEventListener('click', () => {
             }
         })
         .then(res => res.json()) // res.json() converts the data of res which is coming from backend to js object
-        .then(content => {document.getElementById('goInputStatus').innerHTML = content.data})
+        .then(content => {
+           // alert(content.data)
+           document.getElementById('goResult').classList.remove('hidden')
+           document.getElementById('goResult').classList.add('block')
+           document.getElementById('goInputMessage').innerHTML = content.message
+           document.getElementById('goInputStatus').innerHTML = content.data
+        })
     } catch (error) {
         console.error(`error: ${error.message}`)
     }
