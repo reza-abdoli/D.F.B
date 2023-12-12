@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'body-img': "url('../img/2.avif')" // addressing from the output.css file
+        'body-img': "url('../img/img2.webp')" // addressing from the output.css file
       }
     },
   },

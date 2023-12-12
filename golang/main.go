@@ -35,16 +35,10 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 			}
 			var result responseData = responseData{Data: "Less than 8 chars", Message: "Error"} //-------------
 			if len(d.Data) > 8 {
-				//fmt.Println(d.Data,d.Message)
 				cryptoSha256 := sha256.New()
 				cryptoSha256.Write([]byte(d.Data))
 				cr := cryptoSha256.Sum(nil)
 				result = responseData{Data: hex.EncodeToString(cr), Message: "Your sha256:"} //-------------using string(cr) did not work
-				// client := redis.NewClient(&redis.Options{
-				// 	Addr:     "localhost:6379",
-				// 	Password: "", // no password set
-				// 	DB:       0,  // use default DB
-				// })
 				ctx := context.Background()
 				err := client.Set(ctx, result.Data, d.Data, 0).Err()
 				if err != nil {
@@ -60,7 +54,6 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 			w.Header().Set("Content-Type", "application/json")
 
 			w.Write(jsonData)
-			break
 		case "GET":
 			data := r.URL.Query().Get("sha")
 			ctx := context.Background()
@@ -78,7 +71,7 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 			w.Header().Set("Content-Type", "application/json")
 
 			w.Write(jsonData)
-			break
+		default:
 			
 		}
 
