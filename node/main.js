@@ -2,13 +2,14 @@ const http = require('node:http');
 var express = require('express');
 
 const hostname = 'localhost';
-const port = 3061;
+const port = 3069;
 
+const base_dir =  '../frontend/'             
 
 var server = express(); // better instead
 //server => (function(){
-  server.use('/',express.static('../frontend/dist/'));
-  server.use('/img',express.static('../frontend/img/'));
+  server.use('/',express.static( base_dir + 'dist/'));
+  server.use('/golang/img',express.static( '../golang/img/'));
 //});
 
 //server.listen(3061);

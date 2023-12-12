@@ -639,7 +639,7 @@ video {
 }
 
 .bg-body-img {
-  background-image: url('../img/img2.webp');
+  background-image: url('../../golang/img/img2.webp');
 }
 
 .bg-cover {
