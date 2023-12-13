@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'body-img': "url('../../golang/img/img2.webp')" // addressing from the output.css file
+        'body-img': "url('../img/img2.webp')" // addressing from the output.css file
       }
     },
   },

@@ -53,26 +53,33 @@
 
 
             <div class="nodeForm hidden flex-col gap-y-5">
+
                 <form class="flex flex-col gap-y-5">
-                    <label for="nodeInput" class="text-gray-600 text-3xl">Enter at least <span
+                    <label for="nodeInput" class="text-gray-800 text-3xl">Enter at least <span
                             class="text-red-900">8</span> chars</label>
                     <input id="nodeInput" type="text" placeholder="node"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button"
-                        onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)"
+                    <button type="button" id="nodeTextBtn"
                         class="py-3 text-2xl rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
-
-                <h6 id="nodeInputStatus" class="text-gray-800 text-3xl"></h6>
+                <!-- onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" -->
+                <div id="nodeShaResult" class="bg-slate-500 hidden space-y-3">
+                    <h5 id="nodeShaMessage" class="text-red-700 text-3xl"></h5>
+                    <h6 id="nodeShaStatus" class="text-gray-800 text-3xl break-words"></h6>
+                </div>
 
                 <form class="flex flex-col gap-y-5">
-                    <label for="nodeInputSh256" class="text-gray-600 text-3xl">Enter sh256</label>
+                    <label for="nodeInputSh256" class="text-gray-800 text-3xl">Enter sh256</label>
                     <input id="nodeInputSh256" type="text" placeholder="sh256"
                         class="py-3 text-2xl px-3 bg-gray-300 rounded-md outline-none text-gray-600">
-                    <button type="button"
-                        onclick="submitText(document.getElementById('nodeInputStatus'),document.getElementById('nodeInput').value)"
+                    <button type="button" id="nodeSha256Btn"
                         class="py-3 text-2xl  rounded-md text-gray-600 bg-gray-300 hover:scale-105 transition-all">Submit</button>
                 </form>
+                <!-- onclick="submitText(document.getElementById('goInputStatus'),document.getElementById('goInput').value)" -->
+                <div id="nodeDataResult" class="bg-slate-500 hidden space-y-3">
+                    <h5 id="nodeDataMessage" class="text-red-700 text-3xl"></h5>
+                    <h6 id="nodeDataStatus" class="text-gray-800 text-3xl break-words"></h6>
+                </div>
             </div>
 
         </section>

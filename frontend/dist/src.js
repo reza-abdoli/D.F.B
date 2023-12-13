@@ -21,18 +21,11 @@ node.addEventListener('click', function () {
 goInput = document.getElementById('goInput').value
 nodeInput = document.getElementById('nodeInput').value
 
-// function submitText(pElement, value) {
-//     if (value.length < 8) {
-//         pElement.innerHTML = "Eror: Less than 8 chars"
-//     } else {
-//         pElement.innerHTML = "Ok"
-//     }
-// }
-
 goTextBtn = document.getElementById('goTextBtn')
 gosh256Btn = document.getElementById('goSha256Btn')
 
-
+nodeTextBtn = document.getElementById('nodeTextBtn')
+nodesh256Btn = document.getElementById('nodeSha256Btn')
 
 
 goTextBtn.addEventListener('click', () => {
@@ -87,6 +80,37 @@ gosh256Btn.addEventListener('click', () => {
                 document.getElementById('goDataResult').classList.add('block')
                 document.getElementById('goDataMessage').innerHTML = content.message
                 document.getElementById('goDataStatus').innerHTML = content.data
+            })
+    } catch (error) {
+        console.error(`error: ${error.message}`)
+    }
+})
+
+
+nodeTextBtn.addEventListener('click', () => {
+    let nodeUrl = "http://localhost:3061/node/sha256";
+    let input = document.getElementById('nodeInput').value;
+    // if (input.length < 8) {
+    //     document.getElementById('goShaStatus').innerHTML = "Less than 8 chars";
+    //     alert(11)
+    //     return ;
+    // }
+    try {
+        const response = fetch(nodeUrl, {
+            method: "POST",
+            body: JSON.stringify({ message: "", data: input }), // the JSON which is sent to the backend must have the same format as the data sent from the backend 
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+            .then(res => res.json()) // res.json() converts the data of res which is coming from backend to js object
+            .then(content => {
+                // alert(content.data)
+                document.getElementById('nodeDataResult').classList.add('hidden')
+                document.getElementById('nodeShaResult').classList.remove('hidden')
+                document.getElementById('nodeShaResult').classList.add('block')
+                document.getElementById('nodeShaMessage').innerHTML = content.message
+                document.getElementById('nodeShaStatus').innerHTML = content.data
             })
     } catch (error) {
         console.error(`error: ${error.message}`)
