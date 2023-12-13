@@ -88,7 +88,7 @@ gosh256Btn.addEventListener('click', () => {
 
 
 nodeTextBtn.addEventListener('click', () => {
-    let nodeUrl = "http://localhost:3061/node/sha256";
+    let nodeUrl = "http://localhost:3060/node/sha256";
     let input = document.getElementById('nodeInput').value;
     // if (input.length < 8) {
     //     document.getElementById('goShaStatus').innerHTML = "Less than 8 chars";
@@ -111,6 +111,32 @@ nodeTextBtn.addEventListener('click', () => {
                 document.getElementById('nodeShaResult').classList.add('block')
                 document.getElementById('nodeShaMessage').innerHTML = content.message
                 document.getElementById('nodeShaStatus').innerHTML = content.data
+            })
+    } catch (error) {
+        console.error(`error: ${error.message}`)
+    }
+})
+
+nodesh256Btn.addEventListener('click', () => {
+    let input = document.getElementById('nodeInputSh256').value;
+    let nodeUrl = `http://localhost:3060/node/sha256?sha=${input}`;
+    try {
+        const response = fetch(nodeUrl, {
+            method: "GET",
+            //mode: 'no-cors',
+            //dataType: 'jsonp',
+            headers: {
+                "Content-type": "application/json",
+            }
+        })
+            .then(res => res.json()) // res.json() converts the data of res which is coming from backend to js object
+            .then(content => {
+                // alert(content.data)
+                document.getElementById('nodeShaResult').classList.add('hidden')
+                document.getElementById('nodeDataResult').classList.remove('hidden')
+                document.getElementById('nodeDataResult').classList.add('block')
+                document.getElementById('nodeDataMessage').innerHTML = content.message
+                document.getElementById('nodeDataStatus').innerHTML = content.data
             })
     } catch (error) {
         console.error(`error: ${error.message}`)
