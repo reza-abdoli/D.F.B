@@ -40,15 +40,14 @@ goTextBtn.addEventListener('click', () => {
         const response = fetch(goUrl, {
             method: "POST",
             body: JSON.stringify({ message: "", data: input }), // the JSON which is sent to the backend must have the same format as the data sent from the backend 
-            mode: 'no-cors',
-            dataType: 'jsonp',
+           // mode: 'no-cors',
+          //  dataType: 'jsonp',
             headers: {
                 "Content-type": "application/json",
             }
         })
             .then(res => res.json()) // res.json() converts the data of res which is coming from backend to js object
             .then(content => {
-                // alert(content.data)
                 document.getElementById('goDataResult').classList.add('hidden')
                 document.getElementById('goShaResult').classList.remove('hidden')
                 document.getElementById('goShaResult').classList.add('block')
@@ -66,8 +65,8 @@ gosh256Btn.addEventListener('click', () => {
     try {
         const response = fetch(goUrl, {
             method: "GET",
-            mode: 'no-cors',
-            //dataType: 'jsonp',
+           // mode: 'no-cors',
+           /// dataType: 'jsonp',
             headers: {
                 "Content-type": "application/json",
             }
@@ -98,6 +97,8 @@ nodeTextBtn.addEventListener('click', () => {
     try {
         const response = fetch(nodeUrl, {
             method: "POST",
+           // mode: 'no-cors',
+           // dataType: 'jsonp',
             body: JSON.stringify({ message: "", data: input }), // the JSON which is sent to the backend must have the same format as the data sent from the backend 
             headers: {
                 "Content-type": "application/json",
@@ -123,8 +124,8 @@ nodesh256Btn.addEventListener('click', () => {
     try {
         const response = fetch(nodeUrl, {
             method: "GET",
-            //mode: 'no-cors',
-            //dataType: 'jsonp',
+         //   mode: 'no-cors',
+         //   dataType: 'jsonp',
             headers: {
                 "Content-type": "application/json",
             }

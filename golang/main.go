@@ -11,6 +11,7 @@ import (
 	"net/http"
 
 	"github.com/redis/go-redis/v9"
+	"github.com/rs/cors"
 )
 
 type responseData struct {
@@ -51,7 +52,11 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 				return
 			}
 			log.Printf("%+v\n", result)
-			w.Header().Set("Content-Type", "application/json")
+			// w.Header().Set("Access-Control-Allow-Origin", "*")
+			// w.Header().Set("Content-Type", "application/json")
+			// w.Header().Set("Access-Control-Allow-Credentials", "true")
+			// w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+			// w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 
 			w.Write(jsonData)
 		case "GET":
@@ -72,7 +77,7 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 
 			w.Write(jsonData)
 		default:
-			
+
 		}
 
 	}
@@ -94,7 +99,8 @@ func run(domain string, port int) {
 
 	fmt.Printf("Server is listening on %s:%d\n", domain, port)
 
-	err := http.ListenAndServe(fmt.Sprintf("%s:%d", domain, port), mux)
+	handler = cors.Default().Handler(mux) // for forwarding url. at the combinition of the backend without this go backend does not work with this
+	err := http.ListenAndServe(fmt.Sprintf("%s:%d", domain, port), handler)
 	if err != nil {
 		fmt.Println(err)
 	}
