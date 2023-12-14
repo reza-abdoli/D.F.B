@@ -48,7 +48,7 @@ func goPost(w http.ResponseWriter, r *http.Request, client *redis.Client) {
 				http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
 				return
 			}
-
+			log.Printf("%+v\n", result)
 			w.Write(jsonData)
 }
 
@@ -95,7 +95,7 @@ func run(domain string, port int) {
 	mux := http.NewServeMux()
 	handler := http.FileServer(http.Dir("../frontend/dist"))
 	mux.Handle("/", handler)
-	mux.Handle("/img/", http.FileServer(http.Dir("../frontend")))
+//	mux.Handle("/img/", http.FileServer(http.Dir("../frontend")))
 
 	mux.HandleFunc("/go/sha256", goHandler(client))
 

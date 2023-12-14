@@ -18,7 +18,7 @@ const port = 3060;
 var server = express();
 const base_dir = '../frontend/'
 server.use('/', express.static(base_dir + 'dist/'));
-server.use('/img', express.static(base_dir + 'img/'));
+//server.use('/img', express.static(base_dir + 'img/'));
 
 const client = redis.createClient({
   host: 'localhost',
