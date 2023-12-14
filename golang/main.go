@@ -19,11 +19,8 @@ type responseData struct {
 	Message string `json:"message"`
 }
 
-func goHandler(client *redis.Client) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case "POST":
-			b, err := io.ReadAll(r.Body) // reads byte by byte => [](key:value)
+func goPost(w http.ResponseWriter, r *http.Request, client *redis.Client) {
+	b, err := io.ReadAll(r.Body) 
 			if err == io.EOF {
 				http.Error(w, err.Error(), http.StatusUnprocessableEntity)
 				return
@@ -51,16 +48,12 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 				http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
 				return
 			}
-			log.Printf("%+v\n", result)
-			// w.Header().Set("Access-Control-Allow-Origin", "*")
-			// w.Header().Set("Content-Type", "application/json")
-			// w.Header().Set("Access-Control-Allow-Credentials", "true")
-			// w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-			// w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 
 			w.Write(jsonData)
-		case "GET":
-			data := r.URL.Query().Get("sha")
+}
+
+func goGet(w http.ResponseWriter, r *http.Request, client *redis.Client) {
+	data := r.URL.Query().Get("sha")
 			ctx := context.Background()
 			data, err := client.Get(ctx, data).Result()
 			result := responseData{Message: "Error", Data: "The sha does not exist"}
@@ -76,8 +69,17 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 			w.Header().Set("Content-Type", "application/json")
 
 			w.Write(jsonData)
-		default:
+}
 
+func goHandler(client *redis.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case "POST":
+			goPost(w,r,client);
+		case "GET":
+			goGet(w,r,client);
+		default:
+			;
 		}
 
 	}
@@ -86,8 +88,8 @@ func goHandler(client *redis.Client) http.HandlerFunc {
 func run(domain string, port int) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Password: "", 
+		DB:       0,  
 	})
 
 	mux := http.NewServeMux()
@@ -99,7 +101,7 @@ func run(domain string, port int) {
 
 	fmt.Printf("Server is listening on %s:%d\n", domain, port)
 
-	handler = cors.Default().Handler(mux) // for forwarding url. at the combinition of the backend without this go backend does not work with this
+	handler = cors.Default().Handler(mux)
 	err := http.ListenAndServe(fmt.Sprintf("%s:%d", domain, port), handler)
 	if err != nil {
 		fmt.Println(err)

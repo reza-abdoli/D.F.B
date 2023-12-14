@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const cors=require("cors");
 const corsOptions ={
    origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
+   credentials:true,           
    optionSuccessStatus:200,
 }
 
@@ -20,10 +20,6 @@ const base_dir = '../frontend/'
 server.use('/', express.static(base_dir + 'dist/'));
 server.use('/img', express.static(base_dir + 'img/'));
 
-// const client = redis.createClient({
-//   url: "redis://username:password@localhost:6379",
-//   //Connection string format: redis[s]://[[username][:password]@][host][:port]
-// });
 const client = redis.createClient({
   host: 'localhost',
   port: 6379,
@@ -60,8 +56,8 @@ server.post('/node/sha256', (req, res) => {
 
 server.get('/node/sha256', (req, res) => {
   const sha = (req.query.sha);
-  client.get(sha) // get() is a producing code -> it means it takes some time. -> so it returns a promise (every function takes time to prepare sth to return, returns promise) // get() itself has async
-    .then(function (reply, err) { // Promise -> first function is executed (resolve). we don't need function error.  // X.then(function(value) {}) is equal to value = await X (putting await makes functions just return the value (err is being ignored))
+  client.get(sha) 
+    .then(function (reply, err) { 
       console.log(reply);
       console.log(err);
       res_json = { message: "Error", data: "Does not exist" };
@@ -73,10 +69,6 @@ server.get('/node/sha256', (req, res) => {
       }
       console.log(res_json);
     })
-
-  // const t = await client.get(sha);
-  // console.log(t)
-
 })
 
 
