@@ -1,0 +1,27 @@
+(listen x) and (listen [::]:x) are for IPv4 and IPv6 traffics and specific port should be written for either of them
+
+If you are using Ubuntu you also have to define in /etc/hosts your server name exp:for you local ip: 127.0.0.1 mydomain www.mydomain.com mydomain.com
+
+server default listen port is 80 (listen 80) and (listen [::]:80) and it does not have to be specified: (www.mydomain.com is enough) otherwise if it does not 80 it must to be announced in the url exp:  (listen 8011) and (listen [::]:8011) -> www.mydomain.com:8011/
+
+It is also possible to use the following syntax to reload nginx server after you made changes to the config file such as nginx.conf:    sudo systemctl reload nginx
+also see https://www.cyberciti.biz/faq/nginx-restart-ubuntu-linux-command/
+
+html css , js and other files in home/a/... cannot access -> permission denied. they have to be put in knl route such as /var/www/X/html/ or /opt/...
+
+ls /var/log/nginx/ ---------> info about requests exp: cat /var/log/nginx/nginx.info.error.log
+
+using alias we could serve static files :
+root /var/www/cv/dist;
+index index.html;
+server_name nnginx.info www.nnginx.info;
+location / {
+  try_files $uri $uri/ =404;
+}
+location /img {
+  alias /var/www/cv/img;
+}
+
+after changing nginx config it must be reload
+
+we can define a server with name in /etc/hosts. for exp localhost has defined as 127.0.0.1. 
