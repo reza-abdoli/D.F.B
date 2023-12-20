@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
+
 @layer components {
     .view-form {
-        @apply  bg-slate-500 bg-opacity-70  backdrop-blur-sm
+        @apply  bg-slate-500 bg-opacity-70 backdrop-blur-sm opacity-60
+    }
+    .panel-property {
+        @apply translate-x-0 px-9 pb-16 gap-5 flex flex-col items-center justify-center text-white transition-transform duration-700 ease-in-out
     }
 }
