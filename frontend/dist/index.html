@@ -14,28 +14,43 @@
     <form id="mainForm"
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/5 h-3/4 flex shadow-lg shadow-slate-500 rounded-2xl overflow-hidden bg-slate-200 ">
         
-        <div id="letfPanel" class="w-1/2 left-0 z-30">
-            bb
+        <div id="lForm" class="absolute  left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-30 transition-all duration-1000 ease-in-out">
+            <h2 class="mb-8 font-bold text-black text-4xl text-center">SHA-256</h2>
+            <img class="w-20 h-20" src="./img/github.png" alt="github">
+            <input id="data" class="w-full mt-9 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-1 text-xl font-thin" placeholder="Data" type="text">
+            <input class="w-full mt-4 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-none text-xl font-thin" type="text" placeholder="Result" readonly>
+
+            <h6 class="my-7 font-thin text-2xl opacity-60">select the submitting server</h6>
+            <div class="flex gap-6">
+                <button class="overflow-hidden hover:scale-105" type="button">
+                    <img class="w-24 h-24 rounded-xl " src="./img/node.svg" alt="node">
+                </button>
+                <button class="overflow-hidden hover:scale-105" type="button">
+                    <img class="w-24 h-24 rounded-xl" src="./img/go.png" alt="node">
+                </button>
+            </div>
         </div>
 
-        <div id="rightPanel" class="w-1/2 left-0 z-10">
-            hh
+        <div id="rForm" class="absolute left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-20 opacity-100 transition-all duration-1000 ease-in-out">
+            <h2 class="mb-8 font-bold text-black text-4xl text-center">hhhhhhhhhh</h2>
         </div>
 
 
         <div id="floatPanelContainer" class="absolute top-0 z-50 w-1/2 h-full left-1/2 overflow-hidden transition-transform duration-1000 ease-in-out">
             <!-- when it wants to come up left and w-[200%] attribute appears and with overflow-hidden we fix it -->
             <div id="floatPanel" class=" text-center relative w-[200%] right-full h-full bg-gradient-to-br from-orange-800 to-orange-600 transition-transform duration-1000 ease-in-out">
-                <!-- right-full (or -left-full) of the -> 200% -> 100% of content in floatPanelContainer   -->
-                <div id="leftPanel" class="panel-property w-1/2 h-full absolute right-0 ">
-                    <h2 class="font-extrabold text-5xl">Hello, there!</h2>
-                    <h3 class="font-bold text-2xl">Enter at least 8 characters & see the result in SHA256 format</h3>
-                    <button type="button" id="shaPanel">button</button>
-                </div>
-                <div id="xx" class="panel-property w-1/2 h-full absolute -translate-x-[30%]">
+                <!-- right-full (or -left-full) -> w = 200%  -> 100% shift the content in floatPanelContainer to left rightPannel where was at the right appears in the floatPanelContainer frame
+                to see what happened uncomment overflow-hidden  floatPanelContainer and mainForm and remove floatPanel's right-full-->
+                <div id="lPanel" class="panel-property w-1/2 h-full absolute -translate-x-[30%]">
+       
                     <h2 class="font-extrabold text-5xl">Welcome Back!</h2>
                     <h3 class="font-bold text-2xl">Enter a SHA256 & see the data</h3>
                     <button type="button" id="dataPanel">button</button>
+                </div>
+                <div id="rPanel" class="panel-property w-1/2 h-full absolute right-0 translate-x-0">
+                    <h2 class="font-extrabold text-5xl">Hello, there!</h2>
+                    <h3 class="font-bold text-2xl">Enter at least 8 characters & see the result in SHA256 format</h3>
+                    <button type="button" id="shaPanel">button</button>
                 </div>
             </div>
         </div>
