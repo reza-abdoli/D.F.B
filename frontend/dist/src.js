@@ -1,17 +1,3 @@
-// const mainFormWidth = document.getElementById('mainForm').offsetWidth
-// const halfForm = mainFormWidth/2;
-// const Floatinfo = document.getElementById('Floatinfo')
-// const getShaContent = document.getElementById('getShaContent')
-// const rightInfo = document.getElementById('rightInfo')
-// //rightInfo.classList.add(`w-[${mainFormWidth/2}px]`)
-// //info.classList.add('right-0')
-// getShaContent.addEventListener('click', function() {
-//    // if (info.classList.contains('right-0')) {
-//         //alert(12)
-//         Floatinfo.classList.add("-translate-x-full")
-//    // }
-// })
-
 const shaPanel = document.getElementById('shaPanel')
 const dataPanel = document.getElementById('dataPanel')
 
@@ -34,13 +20,11 @@ shaPanel.addEventListener('click', function () {
    leftForm.classList.add('translate-x-full')
    rightForm.classList.add('translate-x-full')
 
-   rightForm.classList.remove('opacity-0')
-  rightForm.classList.remove('z-10')
    rightForm.classList.add('opacity-100')
    rightForm.classList.add('z-50')
    rightForm.classList.add('animate-show')
 })
-// if we wanna replace a property with a new value it's better to remove the old value and add the new value
+
 dataPanel.addEventListener('click', function () {
    floatPanelContainer.classList.remove('-translate-x-full')
    floatPanel.classList.remove('translate-x-[50%]')
@@ -48,6 +32,91 @@ dataPanel.addEventListener('click', function () {
    rightPanel.classList.remove('translate-x-[30%]')
 
    leftForm.classList.remove('translate-x-full')
-
-
+   rightForm.classList.remove('translate-x-full')
+   rightForm.classList.remove('opacity-100')
+   rightForm.classList.remove('z-50')
+   rightForm.classList.remove('animate-show')
 })
+
+const nodePost = document.getElementById('nodePost')
+const goPost = document.getElementById('goPost')
+
+
+
+const goURL = "http://localhost:3061/go/sha256";
+const nodeURL = 'http://localhost:3060/node/sha256'
+
+
+goPost.onclick = () => getSha(goURL);
+ //goPost.addEventListener('click', getSha(goURL))   did not work :(
+
+nodePost.onclick = () => getSha(nodeURL);
+
+const shaResult = document.getElementById('shaResult')
+
+function getSha(url) {
+   data = document.getElementById('data').value;
+   try {
+      fetch(url, {
+         method: "POST",
+         body: JSON.stringify({ message: "", data: data }),
+         headers: {
+            "Content-type": "application/json",
+         }
+      })
+         .then(res => res.json())
+         .then(content => {
+            shaResult.value = content.data
+            if (content.message == "Error") {
+               shaResult.classList.add('text-red-900')
+               shaResult.classList.remove('placeholder-opacity-50')
+               shaResult.classList.add('placeholder-opacity-100')
+            } else {
+               shaResult.classList.remove('text-red-900')
+               shaResult.classList.remove('placeholder-opacity-100')
+               shaResult.classList.add('placeholder-opacity-50')
+            }
+         })
+
+   } catch (error) {
+      console.error(`error: ${error.message}`)
+   }
+}
+
+const nodeGet = document.getElementById('nodeGet')
+const goGet = document.getElementById('goGet')
+
+const dataResult = document.getElementById('dataResult')
+
+goGet.onclick = () => getData(goURL); 
+
+nodeGet.onclick = () => getData(nodeURL); 
+
+function getData(url) {
+   sha256 = document.getElementById('sha256').value;
+   url += `?sha=${sha256}`
+   try {
+      fetch(url, {
+         method: "GET",
+         headers: {
+            "Content-type": "application/json",
+         }
+      })
+         .then(res => res.json())
+         .then(content => {
+            dataResult.value = content.data
+            if (content.message == "Error") {
+               dataResult.classList.add('text-red-900')
+               dataResult.classList.remove('placeholder-opacity-50')
+               dataResult.classList.add('placeholder-opacity-100')
+            } else {
+               dataResult.classList.remove('text-red-900')
+               dataResult.classList.remove('placeholder-opacity-100')
+               dataResult.classList.add('placeholder-opacity-50')
+            }
+         })
+
+   } catch (error) {
+      console.error(`error: ${error.message}`)
+   }
+}

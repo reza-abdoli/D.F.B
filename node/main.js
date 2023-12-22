@@ -60,7 +60,7 @@ server.get('/node/sha256', (req, res) => {
     .then(function (reply, err) { 
       console.log(reply);
       console.log(err);
-      res_json = { message: "Error", data: "Does not exist" };
+      res_json = { message: "Error", data: "The sha does not exist" };
       if (err || reply == null) {
         res.send(res_json);
       } else {

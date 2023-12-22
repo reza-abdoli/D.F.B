@@ -19,7 +19,7 @@ module.exports = {
       }
       },
       animation: {
-        'show': 'formAnimation 1s'
+        'show': 'formAnimation 0.7s'
       }
     },
   },

@@ -12,27 +12,39 @@
 
 <body class="bg-body-img bg-no-repeat bg-fixed bg-center bg-cover font-montserrat">
     <form id="mainForm"
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/5 h-3/4 flex shadow-lg shadow-slate-500 rounded-2xl overflow-hidden bg-slate-200 ">
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[860px] h-[630px] flex shadow-lg shadow-slate-500 rounded-2xl overflow-hidden bg-white ">
         
-        <div id="lForm" class="absolute  left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-30 transition-all duration-1000 ease-in-out">
+        <div id="lForm" class="absolute bg-white left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-30 transition-all duration-1000 ease-in-out">
             <h2 class="mb-8 font-bold text-black text-4xl text-center">SHA-256</h2>
             <img class="w-20 h-20" src="./img/github.png" alt="github">
             <input id="data" class="w-full mt-9 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-1 text-xl font-thin" placeholder="Data" type="text">
-            <input class="w-full mt-4 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-none text-xl font-thin" type="text" placeholder="Result" readonly>
+            <input id="shaResult" class="w-full mt-4 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-none text-xl font-thin" type="text" placeholder="Result" readonly>
 
             <h6 class="my-7 font-thin text-2xl opacity-60">select the submitting server</h6>
             <div class="flex gap-6">
-                <button class="overflow-hidden hover:scale-105" type="button">
-                    <img class="w-24 h-24 rounded-xl " src="./img/node.svg" alt="node">
+                <button id="nodePost" class="overflow-hidden hover:scale-105" type="button">
+                    <img  class="w-24 h-24 rounded-xl " src="./img/node.svg" alt="node">
                 </button>
-                <button class="overflow-hidden hover:scale-105" type="button">
-                    <img class="w-24 h-24 rounded-xl" src="./img/go.png" alt="node">
+                <button id="goPost" class="overflow-hidden hover:scale-105" type="button">
+                    <img  class="w-24 h-24 rounded-xl" src="./img/go.png" alt="go">
                 </button>
             </div>
         </div>
 
-        <div id="rForm" class="absolute left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-20 opacity-100 transition-all duration-1000 ease-in-out">
-            <h2 class="mb-8 font-bold text-black text-4xl text-center">hhhhhhhhhh</h2>
+        <div id="rForm" class="absolute bg-white left-0 h-full flex flex-col items-center py-10 px-9 w-1/2 z-10 opacity-0 transition-all duration-1000 ease-in-out">
+            <h2 class="mb-8 font-bold text-black text-4xl text-center">Data</h2>
+            <button class="w-20 h-20" type="button"><img src="./img/redis2.png"  alt="redis"></button>
+
+            <textarea id="sha256" class="outline-black mb-5 w-full mt-5 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-1 text-xl font-thin" placeholder="SHA-256" name="sha256" rows="4" cols="50"></textarea>
+            <input id="dataResult" class="w-full my-5 py-4 px-6 rounded-xl bg-gray-300 placeholder-black placeholder-opacity-50 outline-none text-xl font-thin" type="text" placeholder="Data" readonly>
+            <div class="flex gap-6">
+                <button id="nodeGet" class="overflow-hidden hover:scale-105" type="button">
+                    <img  class="w-24 h-24 rounded-xl " src="./img/node.svg" alt="node">
+                </button>
+                <button id="goGet" class="overflow-hidden hover:scale-105" type="button">
+                    <img  class="w-24 h-24 rounded-xl" src="./img/go.png" alt="go">
+                </button>
+            </div>
         </div>
 
 
@@ -45,12 +57,12 @@
        
                     <h2 class="font-extrabold text-5xl">Welcome Back!</h2>
                     <h3 class="font-bold text-2xl">Enter a SHA256 & see the data</h3>
-                    <button type="button" id="dataPanel">button</button>
+                    <button type="button" class="border-solid border-2 border-opacity-50 border-white rounded-3xl px-8  py-2 " id="dataPanel">GIVE ME A SHA-256</button>
                 </div>
                 <div id="rPanel" class="panel-property w-1/2 h-full absolute right-0 translate-x-0">
                     <h2 class="font-extrabold text-5xl">Hello, there!</h2>
                     <h3 class="font-bold text-2xl">Enter at least 8 characters & see the result in SHA256 format</h3>
-                    <button type="button" id="shaPanel">button</button>
+                    <button type="button" class="border-solid border-2 border-opacity-50 border-white rounded-3xl px-8  py-2 " id="shaPanel">PICK A DATA FOR ME</button>
                 </div>
             </div>
         </div>
