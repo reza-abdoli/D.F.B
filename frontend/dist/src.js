@@ -47,40 +47,43 @@ const goURL = "http://localhost:3061/go/sha256";
 const nodeURL = 'http://localhost:3060/node/sha256'
 
 
-goPost.onclick = () => getSha(goURL);
- //goPost.addEventListener('click', getSha(goURL))   did not work :(
+goPost.onclick = function () { getSha(goURL); };
+//goPost.addEventListener('click', getSha(goURL))   did not work :(
 
 nodePost.onclick = () => getSha(nodeURL);
 
 const shaResult = document.getElementById('shaResult')
 
+
+
 function getSha(url) {
    data = document.getElementById('data').value;
-   try {
-      fetch(url, {
-         method: "POST",
-         body: JSON.stringify({ message: "", data: data }),
-         headers: {
-            "Content-type": "application/json",
+
+   fetch(url, {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+         message: "",
+         data: data
+      }),
+
+   })
+      .then(res => res.json())
+      .then(content => {
+         shaResult.value = content.data
+         if (content.message == "Error") {
+            shaResult.classList.add('text-red-900')
+            shaResult.classList.remove('placeholder-opacity-50')
+            shaResult.classList.add('placeholder-opacity-100')
+         } else {
+            shaResult.classList.remove('text-red-900')
+            shaResult.classList.remove('placeholder-opacity-100')
+            shaResult.classList.add('placeholder-opacity-50')
          }
       })
-         .then(res => res.json())
-         .then(content => {
-            shaResult.value = content.data
-            if (content.message == "Error") {
-               shaResult.classList.add('text-red-900')
-               shaResult.classList.remove('placeholder-opacity-50')
-               shaResult.classList.add('placeholder-opacity-100')
-            } else {
-               shaResult.classList.remove('text-red-900')
-               shaResult.classList.remove('placeholder-opacity-100')
-               shaResult.classList.add('placeholder-opacity-50')
-            }
-         })
 
-   } catch (error) {
-      console.error(`error: ${error.message}`)
-   }
 }
 
 const nodeGet = document.getElementById('nodeGet')
@@ -88,9 +91,9 @@ const goGet = document.getElementById('goGet')
 
 const dataResult = document.getElementById('dataResult')
 
-goGet.onclick = () => getData(goURL); 
+goGet.onclick = () => getData(goURL);
 
-nodeGet.onclick = () => getData(nodeURL); 
+nodeGet.onclick = () => getData(nodeURL);
 
 function getData(url) {
    sha256 = document.getElementById('sha256').value;
@@ -99,8 +102,8 @@ function getData(url) {
       fetch(url, {
          method: "GET",
          headers: {
-            "Content-type": "application/json",
-         }
+            'Content-Type': 'application/json',
+         },
       })
          .then(res => res.json())
          .then(content => {
