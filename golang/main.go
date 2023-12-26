@@ -64,9 +64,7 @@ func goGet(client *redis.Client) gin.HandlerFunc {
 		result = responseData{Message: "Data:", Data: data}
 		log.Printf("%+v\n", result)
 		c.JSON(200, result)
-
 	}
-
 	return gin.HandlerFunc(fn)
 }
 
@@ -75,7 +73,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "redis:6379",
 		Password: "",
 		DB:       0,
 	})

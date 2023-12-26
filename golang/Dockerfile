@@ -1,4 +1,4 @@
-FROM golang
+FROM golang:1.21.4
 
 
 # Set necessary environmet variables needed for our image
@@ -7,13 +7,15 @@ FROM golang
 WORKDIR /app
 
 # Copy and download dependency using go mod
-COPY go.mod .
+COPY . .
+#COPY go.mod .
 #COPY go.sum .
-COPY main.go .
+#COPY main.go .
+RUN go get
 RUN go mod download
 
 # Copy the code into the container
-#COPY . .
+#
 
 # Build the application
 RUN go build -o bin .
@@ -23,7 +25,7 @@ RUN go build -o bin .
 
 # Copy binary from build to main folder
 #RUN cp /build/main .
-#EXPOSE 3061
+EXPOSE 3061
 
 # Command to run when starting the container
 ENTRYPOINT ["/app/bin"]

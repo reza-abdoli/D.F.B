@@ -25,3 +25,14 @@ location /img {
 after changing nginx config it must be reload
 
 we can define a server with name in /etc/hosts. for exp localhost has defined as 127.0.0.1. 
+
+//---------------------------
+
+docker build . -t my-nginx
+
+fisrt port 80 have to be available(not occupied)
+to see if it is not occupied run sudo lsof -i:80
+if it is occupied run /etc/init.d/apache2 stop otherwise change the port like docker run -p 8099:80 my-nginx
+
+docker run -p 80:80 my-nginx
+
