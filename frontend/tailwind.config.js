@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'body-img': "url('./img/img2.webp')", // addressing from the output.css file
+        'body-img': "url('./img/img2.jpg')", // addressing from the output.css file
         'github-icon': "url('./img/github.png')"
       },
       fontFamily: {

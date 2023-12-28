@@ -12,7 +12,7 @@ const corsOptions ={
 
 
 
-const hostname = 'localhost';
+const hostname = 'redis';
 const port = 3060;
 
 var server = express();
@@ -21,10 +21,8 @@ server.use('/', express.static(base_dir + 'dist/'));
 //server.use('/img', express.static(base_dir + 'img/'));
 
 const client = redis.createClient({
-  host: 'localhost',
-  port: 6379,
-  password: ''
-});
+  url: 'redis://redis:6379'
+  });
 client.on('error', err => console.log('Redis Client Error', err));
 (async () => {
   await client.connect();
@@ -72,6 +70,6 @@ server.get('/node/sha256', (req, res) => {
 })
 
 
-server.listen(port, hostname, () => {
+server.listen(port, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });

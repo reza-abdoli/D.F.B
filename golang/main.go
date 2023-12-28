@@ -73,6 +73,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 	client := redis.NewClient(&redis.Options{
+		// Addr:     "localhost:6379", ---> did not work in the docker & container ....
 		Addr:     "redis:6379",
 		Password: "",
 		DB:       0,
