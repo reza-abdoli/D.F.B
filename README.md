@@ -1,27 +1,27 @@
 # Getting Started 
 * ## [Overview](#video)
-* ## Installing docker compose
-    if you have already installed docker skip this section if not keep on continuing
+* ## Installing Docker Compose
+    If you have already installed Docker, skip this section; if not, continue with the following steps:
   
-    Install Docker Engine on Ubuntu from [docker docks](https://docs.docker.com/engine/install/ubuntu/)
+    Install Docker Engine on Ubuntu from [Docker Docs](https://docs.docker.com/engine/install/ubuntu/).
            
-    enter `docker compose version` to make sure docker has installed correctly otherwise try reinstalling
+    Enter `docker compose version` to ensure Docker is installed correctly. If not, try reinstalling.
 
-* ## Freeing up occupied ports (Linux/Ubuntu)
+* ## Freeing Up Occupied Ports (Linux/Ubuntu)
 
-    in the project the ports below have got used:
+    In the project, the following ports are used:
     | Port | Service |
     |------|---------|
-    | 80 | nginx |
-    | 6379 | redis |
-    | 3060 | node |
-    | 3061 | go |
+    | 80   | Nginx   |
+    | 6379 | Redis   |
+    | 3060 | Node    |
+    | 3061 | Go      |
 
-    to run the project successfuly we have to free up the ports:
-    * ## installing netstat
-        install netstat from [cyberithub](https://www.cyberithub.com/how-to-install-netstat-on-ubuntu-20-04-lts-focal-fossa/)
+    To run the project successfully, free up the ports:
+    * ## Installing Netstat
+        Install netstat from [Cyberithub](https://www.cyberithub.com/how-to-install-netstat-on-ubuntu-20-04-lts-focal-fossa/).
         
-        `netstat --version` must return something like:
+        `netstat --version` should return something like:
         ```
         net-tools 2.10-alpha
         Fred Baumgarten, Alan Cox, Bernd Eckenfels, Phil Blundell, Tuan Hoang, Brian Micek and others
@@ -30,27 +30,26 @@
         HW:  +ETHER +ARC +SLIP +PPP +TUNNEL -TR +AX25 +NETROM +X25 +FR +ROSE +ASH +SIT +FDDI +HIPPI +HDLC/LAPB +EUI64 
         ```
 
-    enter `sudo netstat -tulpn` and if none of the above ports were occupied skip this section, if not try 
+    Enter `sudo netstat -tulpn`, and if none of the above ports are occupied, skip this section. If not, try 
     ```
     sudo lsof -i:<port>
     ```
-    to see process ID which is occuping the port and then try to kill it via
+    to see the process ID occupying the port, and then try to kill it using
     ```
     sudo kill -9 <process_id>
     ```
-    if the above approach does not try the following commands:
+    If the above approach does not work, try the following commands:
     ```
     /etc/init.d/redis-server stop
     sudo /etc/init.d/apache2 stop
     ```
 
-* ## Running the project
-    run
+* ## Running the Project
+    Run
     ```
     docker-compose up --build
     ```
-    and then open `http://localhost` 
+    and then open `http://localhost`. 
 
-# video
-[video.webm](https://github.com/reza-abdoli/vvvvvv/assets/142052182/b1232105-6254-403f-89cc-6d3b7ca23fbe)
-
+# Video
+[video.webm](https://github.com/reza-abdoli/D.F.B/assets/142052182/99fa45e9-3872-407a-925f-234b44b7e812)
